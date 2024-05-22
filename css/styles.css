@@ -153,6 +153,10 @@ body {
     max-height: 600px;
 }
 
+.hidden {
+  display: none;
+}
+
 /* .container {
     max-width: 1000px;
     margin: 0 auto;
