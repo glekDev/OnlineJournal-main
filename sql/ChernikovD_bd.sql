@@ -31,45 +31,81 @@ CREATE TABLE IF NOT EXISTS `Attendance` (
   KEY `student_id` (`student_id`),
   CONSTRAINT `attendance_ibfk_1` FOREIGN KEY (`class_id`) REFERENCES `Classes` (`id`),
   CONSTRAINT `attendance_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=307 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=201 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
--- Дамп данных таблицы ChernikovD_bd.Attendance: ~35 rows (приблизительно)
+-- Дамп данных таблицы ChernikovD_bd.Attendance: ~71 rows (приблизительно)
 INSERT INTO `Attendance` (`id`, `class_id`, `student_id`, `comm`, `yn`) VALUES
-	(264, 185, 7, '', 1),
-	(265, 185, 11, '', 1),
-	(266, 185, 12, '', 0),
-	(267, 185, 15, '', 0),
-	(268, 185, 17, '', 0),
-	(271, 186, 7, NULL, 0),
-	(272, 186, 11, NULL, 0),
-	(273, 186, 12, NULL, 0),
-	(274, 186, 15, NULL, 0),
-	(275, 186, 17, NULL, 0),
-	(278, 187, 7, NULL, 0),
-	(279, 187, 11, NULL, 0),
-	(280, 187, 12, NULL, 0),
-	(281, 187, 15, NULL, 0),
-	(282, 187, 17, NULL, 0),
-	(285, 188, 7, NULL, 0),
-	(286, 188, 11, NULL, 0),
-	(287, 188, 12, NULL, 0),
-	(288, 188, 15, NULL, 0),
-	(289, 188, 17, NULL, 0),
-	(292, 189, 7, NULL, 0),
-	(293, 189, 11, NULL, 0),
-	(294, 189, 12, NULL, 0),
-	(295, 189, 15, NULL, 0),
-	(296, 189, 17, NULL, 0),
-	(297, 190, 7, NULL, 0),
-	(298, 190, 11, NULL, 0),
-	(299, 190, 12, NULL, 0),
-	(300, 190, 15, NULL, 0),
-	(301, 190, 17, NULL, 0),
-	(302, 191, 7, NULL, 0),
-	(303, 191, 11, NULL, 0),
-	(304, 191, 12, NULL, 0),
-	(305, 191, 15, NULL, 0),
-	(306, 191, 17, NULL, 0);
+	(97, 80, 7, NULL, 0),
+	(98, 80, 11, NULL, 0),
+	(99, 80, 15, NULL, 0),
+	(100, 79, 7, '', 0),
+	(101, 79, 11, '', 0),
+	(102, 79, 15, '', 0),
+	(103, 84, 7, '', 1),
+	(104, 84, 11, '', 1),
+	(105, 84, 12, '', 1),
+	(106, 84, 15, '', 1),
+	(107, 84, 17, '', 0),
+	(110, 78, 7, '', 0),
+	(111, 78, 11, '', 1),
+	(112, 78, 12, '', 1),
+	(113, 78, 15, '', 1),
+	(114, 78, 17, 'ghj', 1),
+	(117, 82, 7, NULL, 0),
+	(118, 82, 11, NULL, 0),
+	(119, 82, 12, NULL, 0),
+	(120, 82, 15, NULL, 0),
+	(121, 82, 17, NULL, 0),
+	(124, 85, 5, '', 1),
+	(125, 85, 10, '', 1),
+	(126, 85, 14, 'пар', 0),
+	(127, 85, 16, 'парап', 0),
+	(131, 100, 5, NULL, 0),
+	(132, 100, 10, NULL, 0),
+	(133, 100, 14, NULL, 0),
+	(134, 100, 16, NULL, 0),
+	(138, 101, 5, '', 0),
+	(139, 101, 10, '', 0),
+	(140, 101, 14, '', 0),
+	(141, 101, 16, '', 1),
+	(145, 122, 5, '', 1),
+	(146, 122, 10, '', 1),
+	(147, 122, 14, '', 0),
+	(148, 122, 16, '', 0),
+	(152, 123, 5, '', 1),
+	(153, 123, 10, '', 1),
+	(154, 123, 14, '', 0),
+	(155, 123, 16, '', 1),
+	(159, 164, 7, NULL, 0),
+	(160, 164, 11, NULL, 0),
+	(161, 164, 12, NULL, 0),
+	(162, 164, 15, NULL, 0),
+	(163, 164, 17, NULL, 0),
+	(166, 81, 7, NULL, 0),
+	(167, 81, 11, NULL, 0),
+	(168, 81, 12, NULL, 0),
+	(169, 81, 15, NULL, 0),
+	(170, 81, 17, NULL, 0),
+	(173, 165, 7, '', 1),
+	(174, 165, 11, '', 1),
+	(175, 165, 12, '', 0),
+	(176, 165, 15, '', 0),
+	(177, 165, 17, '', 0),
+	(180, 166, 7, NULL, 0),
+	(181, 166, 11, NULL, 0),
+	(182, 166, 12, NULL, 0),
+	(183, 166, 15, NULL, 0),
+	(184, 166, 17, NULL, 0),
+	(187, 167, 7, NULL, 0),
+	(188, 167, 11, NULL, 0),
+	(189, 167, 12, NULL, 0),
+	(190, 167, 15, NULL, 0),
+	(191, 167, 17, NULL, 0),
+	(194, 168, 7, NULL, 0),
+	(195, 168, 11, NULL, 0),
+	(196, 168, 12, NULL, 0),
+	(197, 168, 15, NULL, 0),
+	(198, 168, 17, NULL, 0);
 
 -- Дамп структуры для таблица ChernikovD_bd.Classes
 CREATE TABLE IF NOT EXISTS `Classes` (
@@ -80,17 +116,49 @@ CREATE TABLE IF NOT EXISTS `Classes` (
   PRIMARY KEY (`id`),
   KEY `course_group_id` (`course_group_id`),
   CONSTRAINT `classes_ibfk_1` FOREIGN KEY (`course_group_id`) REFERENCES `Courses_Groups` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=192 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=169 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
--- Дамп данных таблицы ChernikovD_bd.Classes: ~7 rows (приблизительно)
+-- Дамп данных таблицы ChernikovD_bd.Classes: ~39 rows (приблизительно)
 INSERT INTO `Classes` (`id`, `period`, `course_group_id`, `topic`) VALUES
-	(185, '2024-05-20', 3, '3НФ'),
-	(186, '2024-05-22', 3, '123'),
-	(187, '2024-05-22', 3, '123'),
-	(188, '2024-05-22', 3, '123'),
-	(189, '2024-05-21', 3, '123'),
-	(190, '2024-05-21', 3, 'dfgfdg'),
-	(191, '2024-05-22', 3, 'dfghdfg');
+	(78, '2024-04-28', 3, 'Симплекс-метод'),
+	(79, '2024-04-11', 3, 'sdfsdffsdsfdsfdsdfsdfsdffsdfsdfsdsdfsfdsfdfsdsdffsdsfdsfdfsdsfd'),
+	(80, '2024-04-20', 3, '324234'),
+	(81, '2024-04-20', 3, '324234'),
+	(82, '2024-04-20', 3, '324234'),
+	(83, '2024-04-20', 3, '324234'),
+	(84, '2024-04-28', 3, 'nmvm,n'),
+	(85, '2024-04-29', 2, 'ывупавы'),
+	(100, '2024-04-30', 2, '124'),
+	(101, '2024-04-29', 2, '124'),
+	(102, '2024-04-30', 3, 'fsdfsd'),
+	(103, '2024-04-30', 3, 'fsdfsd'),
+	(104, '2024-04-30', 3, 'fsdfsd'),
+	(105, '2024-04-30', 3, 'ssss'),
+	(106, '2024-04-30', 3, 'ssss'),
+	(107, '2024-04-30', 3, 'ssss'),
+	(108, '2024-04-30', 3, 'ssss'),
+	(109, '2024-04-29', 3, '123123123'),
+	(110, '2024-04-29', 3, '123123123'),
+	(111, '2024-04-29', 3, '123123123'),
+	(112, '2024-04-29', 3, '123123123'),
+	(113, '2024-04-29', 3, '123123123'),
+	(114, '2024-04-29', 3, '123123123'),
+	(115, '2024-04-29', 3, '123123123'),
+	(116, '2024-04-29', 3, '123123123'),
+	(117, '2024-04-29', 3, '123123123'),
+	(118, '2024-04-29', 3, '123123123'),
+	(119, '2024-04-29', 3, '123123123'),
+	(122, '2024-04-04', 2, '213123'),
+	(123, '2024-04-18', 2, '213213123'),
+	(124, '2024-04-18', 3, 'gjdtyj'),
+	(161, '2024-04-03', 3, 'Симплекс-метод'),
+	(162, '2024-04-09', 3, 'Тайно Дернул'),
+	(163, '2024-04-30', 3, 'asdfsad'),
+	(164, '2024-05-01', 3, 'fgdh'),
+	(165, '2024-05-02', 3, 'ваыпвап'),
+	(166, '2024-05-06', 3, 'dgf'),
+	(167, '2024-05-08', 3, 'dgfw'),
+	(168, '2024-05-08', 3, 'dgfw');
 
 -- Дамп структуры для таблица ChernikovD_bd.Courses
 CREATE TABLE IF NOT EXISTS `Courses` (
@@ -169,29 +237,29 @@ CREATE TABLE IF NOT EXISTS `students` (
   `email` varchar(255) DEFAULT NULL,
   `birth_date` date DEFAULT NULL,
   `group_id` int(11) DEFAULT NULL,
-  `subgroup_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   KEY `fk_group_id` (`group_id`),
   CONSTRAINT `fk_group_id` FOREIGN KEY (`group_id`) REFERENCES `Groupss` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
--- Дамп данных таблицы ChernikovD_bd.students: ~14 rows (приблизительно)
-INSERT INTO `students` (`id`, `first_name`, `last_name`, `email`, `birth_date`, `group_id`, `subgroup_id`) VALUES
-	(4, 'Alice', 'Smith', 'alice.smith@example.com', '1992-08-20', 1, 1),
-	(5, 'Bobika', 'Johnson', 'bob.johnson@example.com', '1991-03-10', 2, 1),
-	(6, 'Emily', 'Taylor', 'emily.taylor@example.com', '1993-06-28', 1, 1),
-	(7, 'Michael', 'Harris', 'michael.harris@example.com', '1991-10-15', 3, 1),
-	(8, 'Sophia', 'Lee', 'sophia.lee@example.com', '1990-09-18', 1, 2),
-	(9, 'Daniel', 'Walker', 'daniel.walker@example.com', '1992-12-05', 1, 2),
-	(10, 'Mia', 'Wright', 'mia.wright@example.com', '1993-08-22', 2, 2),
-	(11, 'Matthew', 'Evans', 'matthew.evans@example.com', '1991-05-07', 3, 2),
-	(12, 'Charlotte', 'King', 'charlotte.king@example.com', '1994-03-14', 3, 2),
-	(13, 'Ethan', 'Green', 'ethan.green@example.com', '1990-11-30', 1, 3),
-	(14, 'Amelia', 'Baker', 'amelia.baker@example.com', '1993-07-26', 2, 3),
-	(15, 'Aiden', 'Hill', 'aiden.hill@example.com', '1992-04-11', 3, 3),
-	(16, 'Harper', 'Adams', 'harper.adams@example.com', '1991-01-26', 2, 3),
-	(17, 'Oliver', 'Nelson', 'oliver.nelson@example.com', '1994-10-03', 3, 3);
+-- Дамп данных таблицы ChernikovD_bd.students: ~15 rows (приблизительно)
+INSERT INTO `students` (`id`, `first_name`, `last_name`, `email`, `birth_date`, `group_id`) VALUES
+	(3, 'John', 'Doe', 'john.doe@example.com', '1990-05-15', 1),
+	(4, 'Alice', 'Smith', 'alice.smith@example.com', '1992-08-20', 1),
+	(5, 'Bob', 'Johnson', 'bob.johnson@example.com', '1991-03-10', 2),
+	(6, 'Emily', 'Taylor', 'emily.taylor@example.com', '1993-06-28', 1),
+	(7, 'Michael', 'Harris', 'michael.harris@example.com', '1991-10-15', 3),
+	(8, 'Sophia', 'Lee', 'sophia.lee@example.com', '1990-09-18', 1),
+	(9, 'Daniel', 'Walker', 'daniel.walker@example.com', '1992-12-05', 1),
+	(10, 'Mia', 'Wright', 'mia.wright@example.com', '1993-08-22', 2),
+	(11, 'Matthew', 'Evans', 'matthew.evans@example.com', '1991-05-07', 3),
+	(12, 'Charlotte', 'King', 'charlotte.king@example.com', '1994-03-14', 3),
+	(13, 'Ethan', 'Green', 'ethan.green@example.com', '1990-11-30', 1),
+	(14, 'Amelia', 'Baker', 'amelia.baker@example.com', '1993-07-26', 2),
+	(15, 'Aiden', 'Hill', 'aiden.hill@example.com', '1992-04-11', 3),
+	(16, 'Harper', 'Adams', 'harper.adams@example.com', '1991-01-26', 2),
+	(17, 'Oliver', 'Nelson', 'oliver.nelson@example.com', '1994-10-03', 3);
 
 -- Дамп структуры для таблица ChernikovD_bd.Teachers
 CREATE TABLE IF NOT EXISTS `Teachers` (
@@ -241,34 +309,18 @@ CREATE TABLE IF NOT EXISTS `Users` (
 
 -- Дамп данных таблицы ChernikovD_bd.Users: ~0 rows (приблизительно)
 
--- Дамп структуры для триггер ChernikovD_bd.after_class_insert
+-- Дамп структуры для триггер ChernikovD_bd.classes_after_insert
 SET @OLDTMP_SQL_MODE=@@SQL_MODE, SQL_MODE='STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
 DELIMITER //
-CREATE TRIGGER after_class_insert
+CREATE TRIGGER classes_after_insert
 AFTER INSERT ON Classes
 FOR EACH ROW
 BEGIN
-    DECLARE done INT DEFAULT FALSE;
-    DECLARE student_id INT;
-    DECLARE cur CURSOR FOR 
-        SELECT s.id 
-        FROM students s
-        JOIN Groupss g ON s.group_id = g.id
-        JOIN Courses_Groups cg ON g.id = cg.group_id
-        WHERE cg.id = NEW.course_group_id;
-    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
-
-    OPEN cur;
-
-    read_loop: LOOP
-        FETCH cur INTO student_id;
-        IF done THEN
-            LEAVE read_loop;
-        END IF;
-        INSERT INTO Attendance (class_id, student_id, yn, comm) VALUES (NEW.id, student_id, 0, NULL);
-    END LOOP;
-
-    CLOSE cur;
+    INSERT INTO Attendance (class_id, student_id, comm, yn)
+    SELECT NEW.id, students.id, NULL, 0
+    FROM students
+    JOIN Courses_Groups ON students.group_id = Courses_Groups.group_id
+    WHERE Courses_Groups.course_id = NEW.course_group_id;
 END//
 DELIMITER ;
 SET SQL_MODE=@OLDTMP_SQL_MODE;
