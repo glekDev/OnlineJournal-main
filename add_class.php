@@ -1,59 +1,44 @@
 <?php
-require_once "connectpdo.php";
 
-$input = file_get_contents('php://input');
-$data = json_decode($input, true);
-
-if (json_last_error() !== JSON_ERROR_NONE) {
-    echo json_encode(['error' => 'Invalid JSON input']);
-    exit;
-}
-
-if (isset($data['course_title']) && isset($data['group_serial']) && isset($data['period']) && isset($data['topic'])) {
-    $courseTitle = $data['course_title'];
-    $groupSerial = $data['group_serial'];
-    $period = $data['period'];
-    $topic = $data['topic'];
+// Проверяем, были ли переданы данные POST
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Получаем данные из формы
+    $period = $_POST["lesson_date"];
+    $course_group_id = $_POST["group_id"];
+    $topic = $_POST["lesson_topic"];
 
     try {
-        // Получить course_id и group_id
-        $stmt = $pdo->prepare("SELECT id FROM Courses WHERE title = :course_title");
-        $stmt->execute([':course_title' => $courseTitle]);
-        $courseId = $stmt->fetchColumn();
+        require_once "connectpdo.php";
 
-        $stmt = $pdo->prepare("SELECT id FROM Groupss WHERE serial_num = :group_serial");
-        $stmt->execute([':group_serial' => $groupSerial]);
-        $groupId = $stmt->fetchColumn();
+        // Установка режима ошибок PDO в режим исключения
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        if ($courseId && $groupId) {
-            // Получить course_group_id
-            $stmt = $pdo->prepare("SELECT id FROM Courses_Groups WHERE course_id = :course_id AND group_id = :group_id");
-            $stmt->execute([
-                ':course_id' => $courseId,
-                ':group_id' => $groupId
-            ]);
-            $courseGroupId = $stmt->fetchColumn();
+        $stmt = $pdo->prepare("INSERT INTO Classes (period, course_group_id, topic) VALUES (:period, :course_group_id, :topic)");
 
-            if ($courseGroupId) {
-                // Добавить новое занятие
-                $stmt = $pdo->prepare("INSERT INTO Classes (period, course_group_id, topic) VALUES (:period, :course_group_id, :topic)");
-                $stmt->execute([
-                    ':period' => $period,
-                    ':course_group_id' => $courseGroupId,
-                    ':topic' => $topic
-                ]);
+        $stmt->bindParam(':period', $period);
+        $stmt->bindParam(':course_group_id', $course_group_id);
+        $stmt->bindParam(':topic', $topic);
 
-                echo json_encode(['success' => 'Class added successfully']);
-            } else {
-                echo json_encode(['error' => 'Course group not found']);
-            }
-        } else {
-            echo json_encode(['error' => 'Course or group not found']);
-        }
-    } catch (Exception $e) {
-        echo json_encode(['error' => $e->getMessage()]);
+        $stmt->execute();
+
+        // Получаем ID последней вставленной записи
+        $classId = $pdo->lastInsertId();
+        $newClassData = array(
+            'id' => $classId,
+            'period' => $period,
+            'topic' => $topic
+        );
+
+        // Возвращаем данные о занятии в формате JSON
+        echo json_encode($newClassData);
+
+    } catch(PDOException $e) {
+        echo "Ошибка при добавлении записи в таблицу Classes: " . $e->getMessage();
     }
-} else {
-    echo json_encode(['error' => 'Missing required fields']);
+
+    // Закрываем соединение с базой данных
+    $pdo = null;
 }
+
+
 ?>

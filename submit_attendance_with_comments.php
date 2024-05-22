@@ -1,42 +1,36 @@
 <?php
 require_once "connectpdo.php";
 
-// Получаем данные из тела POST-запроса
-$input = file_get_contents('php://input');
-$data = json_decode($input, true);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $student_id = $_POST['student_id'];
+    $class_id = $_POST['class_id'];
+    $yn = $_POST['yn'];
 
-if (json_last_error() !== JSON_ERROR_NONE) {
-    echo json_encode(['error' => 'Invalid JSON input']);
-    exit;
-}
+    // Проверка существования записи
+    $checkStmt = $pdo->prepare("SELECT * FROM Attendance WHERE student_id = :student_id AND class_id = :class_id");
+    $checkStmt->bindParam(':student_id', $student_id, PDO::PARAM_INT);
+    $checkStmt->bindParam(':class_id', $class_id, PDO::PARAM_INT);
+    $checkStmt->execute();
 
-if (isset($data['attendanceData'])) {
-    $attendanceData = $data['attendanceData'];
-
-    // Подготавливаем запрос для обновления данных по посещаемости
-    $stmt = $pdo->prepare("UPDATE Attendance SET yn = :yn, comm = :comment WHERE student_id = :student_id AND class_id = :class_id");
-
-    // Проходим по каждой записи и обновляем данные в базе
-    try {
-        foreach ($attendanceData as $item) {
-            $studentId = $item['student_id'];
-            $attendanceStatus = $item['yn'];
-            $classId = $item['class_id'];
-            $comment = $item['comm'];
-
-            // Выполняем запрос с переданными данными
-            $stmt->execute([
-                ':yn' => $attendanceStatus,
-                ':comment' => $comment,
-                ':student_id' => $studentId,
-                ':class_id' => $classId
-            ]);
-        }
-        echo json_encode(['success' => 'Attendance data successfully submitted']);
-    } catch (Exception $e) {
-        echo json_encode(['error' => $e->getMessage()]);
+    if ($checkStmt->rowCount() > 0) {
+        // Обновление существующей записи
+        $updateStmt = $pdo->prepare("UPDATE Attendance SET yn = :yn WHERE student_id = :student_id AND class_id = :class_id");
+        $updateStmt->bindParam(':student_id', $student_id, PDO::PARAM_INT);
+        $updateStmt->bindParam(':class_id', $class_id, PDO::PARAM_INT);
+        $updateStmt->bindParam(':yn', $yn, PDO::PARAM_INT);
+        $updateStmt->execute();
+    } else {
+        // Вставка новой записи
+        $insertStmt = $pdo->prepare("INSERT INTO Attendance (student_id, class_id, yn) VALUES (:student_id, :class_id, :yn)");
+        $insertStmt->bindParam(':student_id', $student_id, PDO::PARAM_INT);
+        $insertStmt->bindParam(':class_id', $class_id, PDO::PARAM_INT);
+        $insertStmt->bindParam(':yn', $yn, PDO::PARAM_INT);
+        $insertStmt->execute();
     }
+
+    // Возвращаем успешный ответ
+    echo json_encode(['success' => true]);
 } else {
-    echo json_encode(['error' => 'Attendance data not provided']);
+    echo json_encode(['success' => false, 'message' => 'Invalid request method']);
 }
 ?>
