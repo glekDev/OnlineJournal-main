@@ -26,37 +26,29 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <label for="exampleDataList" class="form-label">Найдите курс</label>
-                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-                <datalist id="datalistOptions">
-                <?php
-            require_once "connectpdo.php";
-            
-            if(isset($_GET['group_id'])) {
-                $group_id = $_GET['group_id'];
-                $stmt = $pdo->prepare("SELECT Courses.* 
-                                        FROM Courses 
-                                        JOIN Courses_Groups ON Courses_Groups.course_id = Courses.id 
-                                        WHERE Courses_Groups.group_id = :group_id");
-                $stmt->bindParam(':group_id', $group_id);
-                $stmt->execute();
-                
+                <label for="exampleSelect" class="form-label">Найдите курс</label>
+                <select class="form-control" id="exampleSelect">
+                    <option value="" disabled selected>Type to search...</option>
+                    <?php
+                        require_once "connectpdo.php";
 
-                $courses = array();
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    $courses[$row['title']] = $row['id'];
-    echo '<option value="' . htmlspecialchars($row['title']) . '">' . htmlspecialchars($row['title']) . '</option>';
-}
+                        if (isset($_GET['group_id'])) {
+                            $group_id = $_GET['group_id'];
+                            $stmt = $pdo->prepare("SELECT Courses.* 
+                                                    FROM Courses 
+                                                    JOIN Courses_Groups ON Courses_Groups.course_id = Courses.id 
+                                                    WHERE Courses_Groups.group_id = :group_id");
+                            $stmt->bindParam(':group_id', $group_id);
+                            $stmt->execute();
 
-                
-
-                
-            }
-            foreach ($courses as $courseTitle => $courseId) {
-                echo '<option value="' . htmlspecialchars($courseTitle) . '">' . htmlspecialchars($courseTitle) . '</option>';
-            }
-            ?>
-                </datalist>
+                            $courses = array();
+                            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                                $courses[$row['title']] = $row['id'];
+                                echo '<option value="' . htmlspecialchars($row['title']) . '">' . htmlspecialchars($row['title']) . '</option>';
+                            }
+                        }
+                    ?>
+                </select>
                 <button id="popoverButtonC" class="btn base-btn btn-lg" onclick="openClasses()">Открыть занятия</button>
             </div>
         </div>
@@ -68,23 +60,16 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     <a href="index.php" class="btn base-btn btn-lg">На главную</a>
 </footer>
 
-
 <script>
-    const popoverButtonС = document.getElementById('popoverButtonС');
-    const popover = new bootstrap.Popover(popoverButtonС, {
-        container: 'body' // Ensure popover is displayed properly
-    });
-
     function openClasses() {
-    const selectedValue = document.getElementById("exampleDataList").value;
-    const selectedTitle = selectedValue.split('|')[0]; // Extract serial number
-    const selectedClassId = <?php echo json_encode($courses); ?>[selectedTitle];
-    if (!selectedClassId) {
-        popover.show();
-    } else {
-        window.location.href = "class.php?id=" + selectedClassId;
+        const selectedValue = document.getElementById("exampleSelect").value;
+        const selectedClassId = <?php echo json_encode($courses); ?>[selectedValue];
+        if (!selectedClassId) {
+            alert('Пожалуйста, выберите действительный курс.'); // Fallback for missing popover element
+        } else {
+            window.location.href = "class.php?id=" + selectedClassId;
+        }
     }
-}
 </script>
 
 <script>
@@ -96,11 +81,12 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         fetch('get_groups.php?group_id=' + groupId)
             .then(response => response.json())
             .then(courses => {
-                const datalist = document.getElementById('datalistOptions');
+                const select = document.getElementById('exampleSelect');
                 courses.forEach(course => {
                     const option = document.createElement('option');
                     option.value = course.title;
-                    datalist.appendChild(option);
+                    option.textContent = course.title;
+                    select.appendChild(option);
                 });
             })
             .catch(error => console.error('Error fetching courses:', error));
@@ -111,7 +97,3 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 </body>
 </html>
-
-
-
-

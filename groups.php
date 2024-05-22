@@ -26,10 +26,10 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <label for="exampleDataList" class="form-label">Найдите группу</label>
-                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
-                <datalist id="datalistOptions">
-                <?php
+                <label for="exampleSelect" class="form-label">Найдите группу</label>
+                <select class="form-control" id="exampleSelect">
+                    <option value="" disabled selected>Type to search...</option>
+                    <?php
                         require_once "connectpdo.php";
 
                         $getst = "SELECT id, serial_num FROM Groupss GROUP BY serial_num";
@@ -37,14 +37,12 @@
                         $stmt->execute();
 
                         $groups = array();
-while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-    $groups[$row['serial_num']] = $row['id'];
-    echo '<option value="' . $row['serial_num'] . '">' . htmlspecialchars($row['serial_num']) . '</option>';
-}
-
-
+                        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            $groups[$row['serial_num']] = $row['id'];
+                            echo '<option value="' . $row['serial_num'] . '">' . htmlspecialchars($row['serial_num']) . '</option>';
+                        }
                     ?>
-                </datalist>
+                </select>
                 <button id="popoverButtonC" class="btn base-btn btn-lg" onclick="openCourses()">Открыть курсы</button>
             </div>
         </div>
@@ -57,21 +55,15 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 </footer>
 
 <script>
-    const popoverButtonG = document.getElementById('popoverButtonG');
-    const popover = new bootstrap.Popover(popoverButtonG, {
-        container: 'body' // Ensure popover is displayed properly
-    });
-
     function openCourses() {
-    const selectedValue = document.getElementById("exampleDataList").value;
-    const selectedSerialNum = selectedValue.split('|')[0]; // Extract serial number
-    const selectedGroupId = <?php echo json_encode($groups); ?>[selectedSerialNum];
-    if (!selectedGroupId) {
-        popover.show();
-    } else {
-        window.location.href = "courses.php?group_id=" + selectedGroupId;
+        const selectedValue = document.getElementById("exampleSelect").value;
+        const selectedGroupId = <?php echo json_encode($groups); ?>[selectedValue];
+        if (!selectedGroupId) {
+            alert('Пожалуйста, выберите действительную группу.'); // Fallback for missing popover element
+        } else {
+            window.location.href = "courses.php?group_id=" + selectedGroupId;
+        }
     }
-}
 </script>
 
 <script>
@@ -79,11 +71,12 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     fetch('get_groups.php')
         .then(response => response.json())
         .then(groups => {
-            const datalist = document.getElementById('datalistOptions');
+            const select = document.getElementById('exampleSelect');
             groups.forEach(group => {
                 const option = document.createElement('option');
                 option.value = group;
-                datalist.appendChild(option);
+                option.textContent = group;
+                select.appendChild(option);
             });
         })
         .catch(error => console.error('Error fetching groups:', error));
@@ -91,23 +84,3 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

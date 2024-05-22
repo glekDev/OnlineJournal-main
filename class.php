@@ -145,7 +145,6 @@
     <div class="container">
         <div class="row">
             <div class="col-12 text-center">
-                <a href="courses.php?id=<?php echo $id; ?>" class="btn btn-lg btn-primary me-2">Вернуться</a>
                 <a href="index.php" class="btn btn-lg btn-primary">На главную</a>
             </div>
         </div>
